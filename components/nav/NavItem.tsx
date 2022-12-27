@@ -1,28 +1,37 @@
-import { Flex, FlexProps, Icon, Link } from "@chakra-ui/react";
+import { Flex, FlexProps, Icon, Link, useEditable } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 import { IconType } from "react-icons";
 
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: any;
+  route: string;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
+  const router = useRouter();
+  const [bgColor, setBgColor] = useState("");
+  useEffect(() => {
+    router.pathname === `${route}` && setBgColor("gray.200");
+  }, [router]);
   return (
     <Link
-      href="#"
+      href={route}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
       <Flex
         align="center"
         p="4"
+        bg={bgColor}
         mx="4"
         borderRadius="lg"
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "cyan.400",
-          color: "white",
+          bg: "gray.200",
+          color: "black",
         }}
         {...rest}
       >
@@ -31,7 +40,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
             mr="4"
             fontSize="16"
             _groupHover={{
-              color: "white",
+              color: "black",
             }}
             as={icon}
           />

@@ -26,6 +26,7 @@ const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
         p="4"
         bg={bgColor}
         mx="4"
+        transitionDuration="200ms"
         borderRadius="lg"
         role="group"
         cursor="pointer"

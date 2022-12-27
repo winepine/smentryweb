@@ -4,7 +4,14 @@ const Header = () => {
   return (
     <HStack h={12} justify="space-evenly" px={64} bg="white">
       {headerItems.map(item => (
-        <Box color="gray.600">{item.value}</Box>
+        <Box
+          transitionDuration="100ms"
+          cursor="pointer"
+          _hover={{ fontWeight: "semibold", color: "gray.500" }}
+          color="gray.600"
+        >
+          {item.value}
+        </Box>
       ))}
     </HStack>
   );

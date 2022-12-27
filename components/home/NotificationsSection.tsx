@@ -1,4 +1,4 @@
-import { Heading, Stack } from "@chakra-ui/react";
+import { Divider, Heading, Stack } from "@chakra-ui/react";
 import NotificationItem from "./NotificationItem";
 
 const NotificationSection = () => {
@@ -7,9 +7,34 @@ const NotificationSection = () => {
       <Heading color="gray.600" fontWeight="semibold">
         Notifications
       </Heading>
+      <Divider py={4} />
       <NotificationItem
         notificationStatus="danger"
         notificationText="SOS Signal Received (H#176-D)"
+      />
+      <NotificationItem
+        notificationStatus="success"
+        notificationText="Staff Entered"
+      />
+      <NotificationItem
+        notificationStatus="success"
+        notificationText="Staff Exited"
+      />
+      <NotificationItem
+        notificationStatus="danger"
+        notificationText="Jaidi House In Danger"
+      />
+      <NotificationItem
+        notificationStatus="danger"
+        notificationText="SOS Signal Received (H#176-D)"
+      />
+      <NotificationItem
+        notificationStatus="success"
+        notificationText="Staff Entered"
+      />
+      <NotificationItem
+        notificationStatus="danger"
+        notificationText="lorem ipsum this is a big notification to check kidr jata wrap hota ke nahi, bas pohanchne lage end pe, han hogya fine"
       />
       <NotificationItem
         notificationStatus="success"

@@ -7,6 +7,10 @@ const colorCodes: colorCodesType = {
   success: "green.100",
   danger: "red.100",
 };
+const hoverColorCodes: colorCodesType = {
+  success: "green.300",
+  danger: "red.200",
+};
 interface NotificationItemProps {
   notificationText: string;
   notificationStatus: keyof colorCodesType;
@@ -23,7 +27,7 @@ const NotificationItem = ({
       bg={colorCodes[notificationStatus]}
       transitionDuration="200ms"
       _hover={{
-        bg: "green.200",
+        bg: hoverColorCodes[notificationStatus],
       }}
       color="gray.700"
       p={4}

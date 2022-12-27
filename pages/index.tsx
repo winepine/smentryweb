@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import NotificationItem from "../components/home/NotificationItem";
 
 export default function Home() {
   // const getTodos = async () => {
@@ -32,6 +33,7 @@ export default function Home() {
   return (
     <Container minW="100%" p={0} m={0}>
       <HStack h={12} justify="space-evenly" px={64} bg="white">
+        <Box color="gray.600">Dashboard</Box>
         <Box color="gray.600">Approvals</Box>
         <Box color="gray.600">Requests</Box>
         <Box color="gray.600">Staff</Box>
@@ -44,37 +46,14 @@ export default function Home() {
           <Heading color="gray.600" fontWeight="semibold">
             Notifications
           </Heading>
-
-          <Box
-            border="1px solid rgba(100,100,100,0.2)"
-            color="gray.700"
-            rounded="md"
-            w="100%"
-            bg="green.100"
-            p={4}
-          >
-            LEL 7315 Entered (Authorized)
-          </Box>
-          <Box
-            border="1px solid rgba(100,100,100,0.2)"
-            rounded="md"
-            color="gray.700"
-            w="100%"
-            bg="red.200"
-            p={4}
-          >
-            SOS Signal (H#123-D)
-          </Box>
-          <Box
-            border="1px solid rgba(100,100,100,0.2)"
-            rounded="md"
-            w="100%"
-            color="gray.700"
-            bg="green.100"
-            p={4}
-          >
-            Approval Granted (33100-2877100-1)(H#13-B)
-          </Box>
+          <NotificationItem
+            notificationStatus="danger"
+            notificationText="SOS Signal Received (H#176-D)"
+          />
+          <NotificationItem
+            notificationStatus="success"
+            notificationText="Staff Entered"
+          />
         </Stack>
         <Center h="90vh">
           <Divider orientation="vertical" />

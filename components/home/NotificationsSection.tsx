@@ -5,6 +5,7 @@ import {
   Unsubscribe,
   orderBy,
   query,
+  Query,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase/clientApp";
@@ -14,8 +15,8 @@ const NotificationSection = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
   useEffect(() => {
     const colRef = collection(db, "notifications");
-    const DBQuery = query(colRef, orderBy("timeStamp"));
-    const unsub: Unsubscribe = onSnapshot(DBQuery, snapshot => {
+    //const DBQuery = query(colRef, orderBy("createdAt"));
+    const unsub: Unsubscribe = onSnapshot(colRef, snapshot => {
       let Notifications: any[] = [];
       snapshot.docs.forEach(doc => {
         Notifications.push(doc.data());

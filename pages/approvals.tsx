@@ -5,17 +5,20 @@ import {
   Heading,
   Input,
   Stack,
+  useStatStyles,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { columns } from "../components/approvals/ApprovalsColumns";
 import ApprovalsTable from "../components/approvals/Table";
 import Header from "../components/home/Header";
 import { getApprovals } from "../services/getApprovals";
 
 const Approvals = () => {
+  const [approvals, setApprovals] = useState<any[]>([]);
   useEffect(() => {
     const getData = async () => {
       const data = await getApprovals();
-      console.log({ data });
+      setApprovals(data);
     };
     getData();
   }, []);
@@ -28,7 +31,7 @@ const Approvals = () => {
         <Box>
           <Input bg="gray.100" placeholder="Search" p={6} mt={8} />
         </Box>
-        <ApprovalsTable />
+        <ApprovalsTable data={approvals} columns={columns} />
       </Stack>
     </Container>
   );

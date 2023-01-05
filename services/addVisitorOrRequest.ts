@@ -21,6 +21,7 @@ const DB_AddVisitorOrRequest = async (visitorData: VisitorDataType) => {
     docRef = await addDoc(collection(db, "house_visitors"), {
       ...visitorData,
       house_no: { house: visitorData.house_no, block: visitorData.block },
+      status: "Not Approved",
       createdAt: serverTimestamp(),
     });
   }

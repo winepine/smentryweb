@@ -9,7 +9,7 @@ import PaginationButtons from "./PaginationButtons";
 import { TableHeaders } from "./TableHeaders";
 import { TablesValues } from "./TableValues";
 
-const ApprovalsTable = ({
+const OurTable = ({
   data,
   columns,
   paginationState,
@@ -36,4 +36,4 @@ const ApprovalsTable = ({
     </Container>
   );
 };
-export default ApprovalsTable;
+export default OurTable;

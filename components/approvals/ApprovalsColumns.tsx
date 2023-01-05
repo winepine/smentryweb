@@ -21,6 +21,12 @@ export const columns: ColumnDef<any>[] = [
     cell: (props: any) => <>{props.renderValue()}</>,
   },
   {
+    header: "Additional Info",
+    accessorKey: "additional",
+    // accessorFn: d => d.billing.first_name,
+    cell: (props: any) => <>{props.renderValue()}</>,
+  },
+  {
     header: "Actions",
     accessorKey: "",
 

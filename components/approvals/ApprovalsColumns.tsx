@@ -1,42 +1,32 @@
+import { Td } from "@chakra-ui/react";
 import { ColumnDef } from "@tanstack/react-table";
+import ActionsForApprovals from "./Actions";
 
 export const columns: ColumnDef<any>[] = [
   {
     header: "Name",
     accessorKey: "name",
-    cell: props => (
-      <td>
-        <>{props.renderValue()}</>
-      </td>
-    ),
+    cell: props => <>{props.renderValue()}</>,
   },
   {
     header: "House No.",
     accessorKey: "house_no.house",
-    cell: (props: any) => (
-      <td>
-        <>{props.renderValue()}</>
-      </td>
-    ),
+    cell: (props: any) => <>{props.renderValue()}</>,
   },
   {
     header: "Status",
     accessorKey: "status",
     // accessorFn: d => d.billing.first_name,
-    cell: (props: any) => (
-      <td>
-        <>{props.renderValue()}</>
-      </td>
-    ),
+    cell: (props: any) => <>{props.renderValue()}</>,
   },
   {
     header: "Actions",
-    accessorKey: "status",
-    // accessorFn: d => d.billing.first_name,
+    accessorKey: "",
+
     cell: (props: any) => (
-      <td>
-        <>{props.renderValue()}</>
-      </td>
+      <>
+        <ActionsForApprovals approval={props.row.original} />
+      </>
     ),
   },
 ];

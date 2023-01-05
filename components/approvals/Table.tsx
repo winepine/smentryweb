@@ -28,7 +28,7 @@ const ApprovalsTable = ({
   });
   return (
     <Container minW="100%">
-      <Table>
+      <Table mt={8}>
         <TableHeaders table={table} />
         <TablesValues table={table} />
       </Table>

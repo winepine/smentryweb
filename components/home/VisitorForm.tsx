@@ -1,4 +1,12 @@
-import { Button, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  HStack,
+  Input,
+  Select,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import React, {
   ChangeEventHandler,
   HtmlHTMLAttributes,
@@ -9,6 +17,7 @@ import { DB_AddVisitorOrRequest } from "../../services/addVisitorOrRequest";
 import { VisitorDataType } from "./types/VisitorDataType";
 
 const VisitorForm = () => {
+  const toast = useToast();
   const [isHouseVisitor, setIsHouseVisitor] = useState<boolean>(false);
   const [visitorData, setVisitorData] = useState<VisitorDataType>({
     name: "",
@@ -26,8 +35,18 @@ const VisitorForm = () => {
       [target.name]: target.value,
     });
   };
-  const onFormSubmitHandler = () => {
-    DB_AddVisitorOrRequest(visitorData);
+  const onFormSubmitHandler = async () => {
+    await DB_AddVisitorOrRequest(visitorData);
+    const text =
+      visitorData.house_no === ""
+        ? "Visitor Added"
+        : `Entrance Requested By ${visitorData.house_no}-${visitorData.block}`;
+    toast({
+      title: text,
+      status: "info",
+      isClosable: true,
+      position: "top-right",
+    });
   };
   useEffect(() => {
     setIsHouseVisitor(!(visitorData.house_no == ""));

@@ -1,48 +1,54 @@
-import { Box, Button, HStack, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Stack, Text } from "@chakra-ui/react";
 
 const PaginationButtons = ({ table }: any) => {
   return (
-    <Box>
-      <Button
-        onClick={() => {
-          table.setPageIndex(0);
-        }}
-        disabled={!table.getCanPreviousPage()}
-      >
-        {"<<"}
-      </Button>
-      <Button
-        onClick={() => {
-          table.previousPage();
-        }}
-        disabled={!table.getCanPreviousPage()}
-      >
-        {"<"}
-      </Button>
-      <Button
-        onClick={() => {
-          table.nextPage();
-        }}
-        disabled={!table.getCanNextPage()}
-      >
-        {">"}
-      </Button>
-      <Button
-        onClick={() => {
-          table.setPageIndex(table.getPageCount() - 1);
-        }}
-        disabled={!table.getCanNextPage()}
-      >
-        {">>"}
-      </Button>
-      <HStack>
+    <Stack align="center" mt={6}>
+      <Box>
+        <Button
+          mx={2}
+          onClick={() => {
+            table.setPageIndex(0);
+          }}
+          disabled={!table.getCanPreviousPage()}
+        >
+          {"<<"}
+        </Button>
+        <Button
+          mx={2}
+          onClick={() => {
+            table.previousPage();
+          }}
+          disabled={!table.getCanPreviousPage()}
+        >
+          {"<"}
+        </Button>
+        <Button
+          mx={2}
+          onClick={() => {
+            table.nextPage();
+          }}
+          disabled={!table.getCanNextPage()}
+        >
+          {">"}
+        </Button>
+        <Button
+          mx={2}
+          onClick={() => {
+            table.setPageIndex(table.getPageCount() - 1);
+          }}
+          disabled={!table.getCanNextPage()}
+        >
+          {">>"}
+        </Button>
+      </Box>
+
+      <HStack my={4}>
         <Text>Page </Text>
         <Text>
           {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}{" "}
-          |
         </Text>
         <Box>
-          Go to page:
+          {/* Go to page: */}
           {/* <Input
           inputOption={{
               type: "number",
@@ -58,7 +64,7 @@ const PaginationButtons = ({ table }: any) => {
         /> */}
         </Box>
       </HStack>
-    </Box>
+    </Stack>
   );
 };
 export default PaginationButtons;

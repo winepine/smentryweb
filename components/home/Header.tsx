@@ -1,17 +1,11 @@
 import { Box, HStack } from "@chakra-ui/react";
+import Link from "next/link";
 import headerItems from "./headerItems";
 const Header = () => {
   return (
     <HStack h={12} justify="space-evenly" px={64} bg="white">
       {headerItems.map(item => (
-        <Box
-          transitionDuration="100ms"
-          cursor="pointer"
-          _hover={{ fontWeight: "semibold", color: "gray.500" }}
-          color="gray.600"
-        >
-          {item.value}
-        </Box>
+        <Link href={item.url}>{item.value}</Link>
       ))}
     </HStack>
   );

@@ -1,11 +1,11 @@
 const headerItems = [
   {
     value: "Dashboard",
-    url: "",
+    url: "/",
   },
   {
     value: "Approvals",
-    url: "",
+    url: "/approvals",
   },
   {
     value: "Requests",

@@ -12,7 +12,7 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     header: "House No.",
-    accessorKey: "house_number",
+    accessorKey: "house_no.house",
     cell: (props: any) => (
       <td>
         <>{props.renderValue()}</>

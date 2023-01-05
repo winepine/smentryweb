@@ -20,6 +20,7 @@ const DB_AddVisitorOrRequest = async (visitorData: VisitorDataType) => {
   } else {
     docRef = await addDoc(collection(db, "house_visitors"), {
       ...visitorData,
+      house_no: { house: visitorData.house_no, block: visitorData.block },
       createdAt: serverTimestamp(),
     });
   }

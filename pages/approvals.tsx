@@ -6,10 +6,19 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import ApprovalsTable from "../components/approvals/Table";
 import Header from "../components/home/Header";
+import { getApprovals } from "../services/getApprovals";
 
 const Approvals = () => {
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getApprovals();
+      console.log({ data });
+    };
+    getData();
+  }, []);
   return (
     <Container minW="100%" p={0} m={0}>
       <Header />

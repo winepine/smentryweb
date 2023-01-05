@@ -5,7 +5,7 @@ import NavItem from "./NavItem";
 const SidebarContent = ({ ...rest }) => {
   return (
     <Box
-      bg={"white"}
+      bg={"gray.200"}
       borderRight="1px"
       borderRightColor={"gray.200"}
       w={{ base: "0", md: 48 }}

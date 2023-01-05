@@ -32,7 +32,7 @@ const DummySOSData = [
 const SosTable = () => {
   return (
     <>
-      <Text pt={6} fontSize="2xl" fontWeight="semibold">
+      <Text pt={6} fontSize="2xl" fontWeight="semibold" color={"gray.700"}>
         SOS Signals Live
       </Text>
       <TableContainer w="100%">

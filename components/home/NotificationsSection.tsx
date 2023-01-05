@@ -29,7 +29,7 @@ const NotificationSection = () => {
 
   return (
     <Stack w="50%" p={8} align="center">
-      <Heading color="gray.600" fontWeight="semibold">
+      <Heading color="gray.700" fontWeight="semibold">
         Notifications
       </Heading>
       <HStack>

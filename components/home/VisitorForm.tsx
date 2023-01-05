@@ -53,7 +53,7 @@ const VisitorForm = () => {
   }, [visitorData.house_no]);
   return (
     <>
-      <Text fontSize="2xl" fontWeight="semibold">
+      <Text fontSize="2xl" fontWeight="semibold" color={"gray.700"}>
         Visitor Info Form
       </Text>
 

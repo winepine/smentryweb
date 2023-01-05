@@ -5,6 +5,7 @@ import {
   Table as tableType,
   useReactTable,
 } from "@tanstack/react-table";
+import { StaffValues } from "../staff/StaffTableValues";
 import PaginationButtons from "./PaginationButtons";
 import { TableHeaders } from "./TableHeaders";
 import { TablesValues } from "./TableValues";
@@ -14,7 +15,7 @@ const OurTable = ({
   columns,
   paginationState,
   onPaginationChange,
-  pageCount,
+  isStaff = false,
 }: any) => {
   const table = useReactTable({
     data,
@@ -30,7 +31,11 @@ const OurTable = ({
     <Container minW="100%">
       <Table mt={8}>
         <TableHeaders table={table} />
-        <TablesValues table={table} />
+        {isStaff ? (
+          <StaffValues table={table} />
+        ) : (
+          <TablesValues table={table} />
+        )}
       </Table>
       <PaginationButtons table={table} />
     </Container>

@@ -1,4 +1,4 @@
-import { Divider, Heading, Stack } from "@chakra-ui/react";
+import { Box, Divider, Heading, HStack, Stack, Text } from "@chakra-ui/react";
 import NotificationItem from "./NotificationItem";
 
 const NotificationSection = () => {
@@ -7,6 +7,10 @@ const NotificationSection = () => {
       <Heading color="gray.600" fontWeight="semibold">
         Notifications
       </Heading>
+      <HStack>
+        <Text>Camera Status: </Text>
+        <Text color="green">Live</Text>
+      </HStack>
       <Divider py={4} />
       <NotificationItem
         notificationStatus="danger"

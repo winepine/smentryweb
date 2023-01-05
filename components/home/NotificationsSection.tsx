@@ -26,9 +26,7 @@ const NotificationSection = () => {
     });
     return unsub;
   }, []);
-  useEffect(() => {
-    console.log({ notifications });
-  }, [notifications]);
+
   return (
     <Stack w="50%" p={8} align="center">
       <Heading color="gray.600" fontWeight="semibold">

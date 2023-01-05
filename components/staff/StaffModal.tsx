@@ -42,6 +42,9 @@ function StaffModal({ isOpen, onOpen, onClose, data }: any) {
                 Contact Numbers:
                 {data[3].getValue()}
               </Text>
+              <Button my={4} colorScheme="green">
+                Insert Entry
+              </Button>
             </Stack>
           </ModalBody>
         </ModalContent>

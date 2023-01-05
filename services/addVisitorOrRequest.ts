@@ -22,6 +22,7 @@ const DB_AddVisitorOrRequest = async (visitorData: VisitorDataType) => {
       ...visitorData,
       house_no: { house: visitorData.house_no, block: visitorData.block },
       status: "Not Approved",
+      dismissed: false,
       createdAt: serverTimestamp(),
     });
   }

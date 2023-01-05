@@ -7,20 +7,29 @@ import {
   Stack,
   useStatStyles,
 } from "@chakra-ui/react";
+import { collection, onSnapshot, Unsubscribe } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { columns } from "../components/approvals/ApprovalsColumns";
 import ApprovalsTable from "../components/approvals/Table";
 import Header from "../components/home/Header";
+import { db } from "../firebase/clientApp";
 import { getApprovals } from "../services/getApprovals";
 
 const Approvals = () => {
   const [approvals, setApprovals] = useState<any[]>([]);
   useEffect(() => {
-    const getData = async () => {
-      const data = await getApprovals();
-      setApprovals(data);
-    };
-    getData();
+    const colRef = collection(db, "house_visitors");
+    const unsub: Unsubscribe = onSnapshot(colRef, snapshot => {
+      let approvals: any[] = [];
+      snapshot.docs.forEach(doc => {
+        if (doc.data().dismissed == false) {
+          approvals.push({ ...doc.data(), id: doc.id });
+        }
+      });
+
+      setApprovals(approvals);
+    });
+    return unsub;
   }, []);
   return (
     <Container minW="100%" p={0} m={0}>

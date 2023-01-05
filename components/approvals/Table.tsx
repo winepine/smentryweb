@@ -14,7 +14,7 @@ const OurTable = ({
   columns,
   paginationState,
   onPaginationChange,
-  pageCount,
+  isStaff = false,
 }: any) => {
   const table = useReactTable({
     data,

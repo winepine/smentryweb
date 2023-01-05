@@ -13,7 +13,7 @@ const headerItems = [
   },
   {
     value: "Staff",
-    url: "",
+    url: "/staff",
   },
   {
     value: "Invites",

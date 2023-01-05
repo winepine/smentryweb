@@ -37,6 +37,7 @@ const Staff = () => {
           columns={StaffColumns}
           paginationState={paginationState}
           onPaginationChange={setPaginationState}
+          isStaff={true}
         />
       </Stack>
     </Container>

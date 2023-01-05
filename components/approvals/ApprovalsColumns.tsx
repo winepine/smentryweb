@@ -10,7 +10,8 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     header: "House No.",
-    accessorKey: "house_no.house",
+    accessorKey: "house_no",
+    accessorFn: d => d.house_no.house + " - " + d.house_no.block,
     cell: (props: any) => <>{props.renderValue()}</>,
   },
   {

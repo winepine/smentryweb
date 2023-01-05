@@ -13,7 +13,6 @@ import { columns } from "../components/approvals/ApprovalsColumns";
 import ApprovalsTable from "../components/approvals/Table";
 import Header from "../components/home/Header";
 import { db } from "../firebase/clientApp";
-import { getApprovals } from "../services/getApprovals";
 
 const Approvals = () => {
   const [approvals, setApprovals] = useState<any[]>([]);

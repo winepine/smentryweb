@@ -17,7 +17,7 @@ const headerItems = [
   },
   {
     value: "Invites",
-    url: "",
+    url: "/invites",
   },
 ];
 export default headerItems;

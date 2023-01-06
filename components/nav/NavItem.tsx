@@ -14,7 +14,7 @@ const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
   const [bgColor, setBgColor] = useState("");
   useEffect(() => {
     router.pathname === `${route}` && setBgColor("gray.200");
-  }, [router]);
+  }, [router,route]);
   return (
     <Link
       href={route}

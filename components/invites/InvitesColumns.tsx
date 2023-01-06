@@ -1,6 +1,6 @@
 import { Td } from "@chakra-ui/react";
 import { ColumnDef } from "@tanstack/react-table";
-import InvitesActions from "./invitesActions";
+import InvitesActions from "./InvitesActions";
 // import ActionsForApprovals from "./Actions";
 
 export const InvitesColumns: ColumnDef<any>[] = [

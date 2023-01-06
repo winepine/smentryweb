@@ -8,7 +8,7 @@ import { RequestsColumns } from "../components/requests/RequestsColumns";
 
 import { db } from "../firebase/clientApp";
 
-const requests = () => {
+const Requests = () => {
   const [requests, setRequests] = useState<any[]>([]);
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
@@ -41,4 +41,4 @@ const requests = () => {
     </Container>
   );
 };
-export default requests;
+export default Requests;

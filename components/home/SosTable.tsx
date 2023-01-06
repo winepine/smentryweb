@@ -45,8 +45,8 @@ const SosTable = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {DummySOSData.map(signal => (
-              <Tr>
+            {DummySOSData.map((signal:any,key:any) => (
+              <Tr key={key}>
                 <Td>{signal.house}</Td>
                 <Td>{signal.block}</Td>
                 <Td textAlign="center">

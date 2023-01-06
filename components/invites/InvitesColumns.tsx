@@ -1,5 +1,6 @@
 import { Td } from "@chakra-ui/react";
 import { ColumnDef } from "@tanstack/react-table";
+import InvitesActions from "./invitesActions";
 // import ActionsForApprovals from "./Actions";
 
 export const InvitesColumns: ColumnDef<any>[] = [
@@ -20,6 +21,12 @@ export const InvitesColumns: ColumnDef<any>[] = [
     // accessorFn: d => d.billing.first_name,
     cell: (props: any) => <>{props.renderValue()}</>,
   },
+  {
+    header: "Status",
+    accessorKey: "status",
+    // accessorFn: d => d.billing.first_name,
+    cell: (props: any) => <>{props.renderValue()}</>,
+  },
   
   {
     header: "Actions",
@@ -27,6 +34,7 @@ export const InvitesColumns: ColumnDef<any>[] = [
 
     cell: (props: any) => (
       <>
+      <InvitesActions invite={props.row.original} />
         {/* <ActionsForApprovals approval={props.row.original} /> */}
       </>
     ),

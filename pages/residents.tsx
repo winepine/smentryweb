@@ -1,4 +1,4 @@
-import { Box, Button, Container, Heading, HStack, Input, Stack } from "@chakra-ui/react";
+import { Box, Button, Container, Heading, HStack, Input, Stack, useDisclosure } from "@chakra-ui/react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import OurTable from "../components/approvals/Table";
@@ -6,9 +6,11 @@ import Header from "../components/home/Header";
 import { RequestsColumns } from "../components/requests/RequestsColumns";
 import { HousesColumns } from "../components/houses/HousesColumns";
 import { db } from "../firebase/clientApp";
+import RegisterHousesModal from "../components/houses/RegisterHouseModal";
 
 const Residents = () => {
   const [houses, setHouses] = useState<any[]>([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -29,7 +31,7 @@ const Residents = () => {
         <Heading>Houses Management</Heading>
         <HStack pt={8}>
           <Input bg="gray.100" placeholder="Search" p={6} />
-          <Button colorScheme='green' p={6}>Register</Button>
+          <Button onClick={onOpen} colorScheme='green' p={6}>Register</Button>
         </HStack>
         <OurTable
           data={houses}
@@ -38,6 +40,7 @@ const Residents = () => {
           onPaginationChange={setPaginationState}
         />
       </Stack>
+      <RegisterHousesModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Container>
   );
 };

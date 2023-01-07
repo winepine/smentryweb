@@ -112,7 +112,7 @@ const VisitorForm = () => {
         mt={16}
         onClick={onFormSubmitHandler}
       >
-        {isHouseVisitor ? "Request House Member" : "Request Visitor Pass"}
+        {isHouseVisitor ? "Request House Member" : "Issue Visitor Pass"}
       </Button>
     </>
   );

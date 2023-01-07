@@ -10,7 +10,7 @@ Table,
     Thead,
     Tr,
   } from "@chakra-ui/react";
-const CarsTableInHouses = ({vehicles}:any)=>{
+const VehicleTableInHouses = ({vehicles}:any)=>{
     return <TableContainer>
     <Heading color='gray.600' fontSize='2xl' mb={8} fontWeight='semibold' textAlign='center'>Vehicles</Heading>
 <Table  variant='simple'>
@@ -36,4 +36,4 @@ const CarsTableInHouses = ({vehicles}:any)=>{
 </Table>
 </TableContainer>
 }
-export default CarsTableInHouses
+export default VehicleTableInHouses

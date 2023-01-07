@@ -5,9 +5,12 @@ const ActionsForApprovals = ({ approval }: any) => {
   //console.log(approval);
   return (
     <>
+    {
+      approval.status==='Approved'&&
       <Button onClick={() => dismissApproval(approval.id)} colorScheme="red">
         Dismiss
       </Button>
+      }
     </>
   );
 };

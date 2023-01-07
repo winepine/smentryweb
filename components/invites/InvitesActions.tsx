@@ -3,7 +3,10 @@ import {inviteEntry} from '../../services/inviteEntry'
 const InvitesActions = ({invite}:any)=>{
     return <>
     {invite.numberplate===''&&
-    <Button onClick={()=>inviteEntry(invite.id)} >Grant Entry</Button>}
+    
+        invite.status!=='Entered'&&
+        <Button fontSize={'xs'} size='xs' onClick={()=>inviteEntry(invite.id)} >Grant Entry</Button>}
+    
     </>
 }
 export default InvitesActions

@@ -6,7 +6,7 @@ export function TablesValues({ table }: any) {
     <Tbody>
       {table.getRowModel().rows.map((row: any, index: any) => {
         return (
-          <Tr key={index}>
+          <Tr   key={index}>
             {row.getVisibleCells().map((cell: any, index: any) => (
               <Td key={index}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}

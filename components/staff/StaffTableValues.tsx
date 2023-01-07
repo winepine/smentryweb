@@ -8,7 +8,7 @@ export function StaffValues({ table }: any) {
     <Tbody>
       {table.getRowModel().rows.map((row: any, index: any) => {
         return (
-          <Tr key={index} _hover={{ bg: "gray.100" }} onClick={onOpen}>
+          <Tr  key={index} _hover={{ bg: "gray.100" }} onClick={onOpen}>
             <StaffModal
               isOpen={isOpen}
               onOpen={onOpen}

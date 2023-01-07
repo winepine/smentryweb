@@ -7,25 +7,29 @@ import {
 const DeliveryActions = ({ request }: any) => {
   return (
     <>
-      {request.status === "Cancelled" && (
+      {request.status === "Pending" && (
+        <>
         <Button
           onClick={() => completeDeliveryRequest(request.id)}
           fontSize="xs"
+          size='sm'
           mr={4}
           colorScheme="blue"
-        >
+          >
           Mark Complete
         </Button>
-      )}
-      {request.status === "Completed" && (
+      
+    
         <Button
           onClick={() => dismissDeliveryRequest(request.id)}
           fontSize="xs"
+          size='sm'
           mr={4}
           colorScheme="red"
         >
-          Dismiss/Cancel
+          Mark Cancel
         </Button>
+          </>
       )}
     </>
   );

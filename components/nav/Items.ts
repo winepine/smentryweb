@@ -9,6 +9,6 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, route: "/" },
   { name: "Residents", icon: MdFamilyRestroom, route: "/residents" },
-  { name: "Visitors", icon: FiCompass, route: "/visitors" },
+  { name: "Activity", icon: FiCompass, route: "/activity" },
 ];
 export default LinkItems;

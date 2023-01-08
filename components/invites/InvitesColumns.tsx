@@ -27,6 +27,12 @@ export const InvitesColumns: ColumnDef<any>[] = [
     // accessorFn: d => d.billing.first_name,
     cell: (props: any) => <>{props.renderValue()}</>,
   },
+  {
+    header: "Additional",
+    accessorKey: "additional",
+    // accessorFn: d => d.billing.first_name,
+    cell: (props: any) => <>{props.renderValue()}</>,
+  },
   
   {
     header: "Actions",

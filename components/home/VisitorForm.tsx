@@ -7,6 +7,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
+import { serverTimestamp } from "firebase/firestore";
 import React, {
   ChangeEventHandler,
   HtmlHTMLAttributes,
@@ -50,7 +51,8 @@ const VisitorForm = () => {
         },
         numberplate:visitorData.numberplate,
         type:'visitor',
-        additional:visitorData.additional
+        additional:visitorData.additional,
+        createdAt:serverTimestamp()
       });
 
     }

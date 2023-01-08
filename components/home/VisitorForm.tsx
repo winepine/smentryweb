@@ -17,19 +17,65 @@ import React, {
 import { addActivity } from "../../services/addActivity";
 import { DB_AddVisitorOrRequest } from "../../services/addVisitorOrRequest";
 import { VisitorDataType } from "./types/VisitorDataType";
-
 const VisitorForm = () => {
   const toast = useToast();
   const [isHouseVisitor, setIsHouseVisitor] = useState<boolean>(false);
+  const [isInvalid,setIsInvalid]=useState({
+    name: false,
+    cnic: false,
+    house_no: false,
+    additional: false
+  })
   const [isLoading,setIsLoading]=useState(false);
   const [visitorData, setVisitorData] = useState<VisitorDataType>({
     name: "",
-    cnic: "",
+    cnic: '',
     numberplate: "",
     house_no: "",
     block: "A",
     additional: "",
   });
+  const validateInput = ()=>{
+    
+    let error=false;
+    let errors= {
+      name: false,
+      cnic: false,
+      house_no: false,
+      additional: false
+    };
+    if(visitorData.name.length<3){
+      errors={
+        ...errors,name:true
+      }
+      error=true;
+    }
+    if(visitorData.cnic.length<13){
+      errors={
+        ...errors,cnic:true
+      }
+      error=true;
+    }
+    if(visitorData.house_no==""){
+      if(visitorData.house_no.length>4){
+        errors={
+          ...errors,house_no:true
+        }
+        error=true;
+      }
+    }
+    console.log({errors})
+    setIsInvalid(errors)
+    if(error){
+      toast({
+        title: "Invalid Values.",
+        status: "error",
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+    return error;
+  }
   const onChangeFormValueHandler = ({
     target,
   }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -39,6 +85,9 @@ const VisitorForm = () => {
     });
   };
   const onFormSubmitHandler = async () => {
+    if(validateInput()){
+      return;
+    }
     setIsLoading(true);
     await DB_AddVisitorOrRequest(visitorData);
     if(visitorData.house_no === "") {
@@ -80,16 +129,31 @@ const VisitorForm = () => {
       <HStack py={6} minW="100%" align="start">
         <Stack minW="50%">
           <Input
+          isInvalid={isInvalid.name}
             onChange={onChangeFormValueHandler}
             value={visitorData.name}
             name="name"
             placeholder="Name"
           />
           <Input
-            onChange={onChangeFormValueHandler}
+          isInvalid={isInvalid.cnic}
+            onChange={({target})=>{
+              if(target.value.length<14){
+                setVisitorData({
+                  ...visitorData,
+                  [target.name]: target.value,
+                });
+              }
+            }}
+            //as={InputMask}
+            type='number'
+
+            //mask="*************"
+            //type='number'
             value={visitorData.cnic}
             name="cnic"
             placeholder="CNIC"
+            maxLength={11}
           />
           <Input
             onChange={onChangeFormValueHandler}
@@ -102,9 +166,20 @@ const VisitorForm = () => {
           <HStack>
             <Input
               name="house_no"
-              onChange={onChangeFormValueHandler}
+              
+              isInvalid={isInvalid.house_no}
+
+              onChange={({target})=>{
+                if(target.value.length<5){
+                  setVisitorData({
+                    ...visitorData,
+                    [target.name]: target.value,
+                  });
+                }
+              }}
               value={visitorData.house_no}
               placeholder="Where"
+              type='number'
             />
             <Select
               onChange={onChangeFormValueHandler}
@@ -121,6 +196,7 @@ const VisitorForm = () => {
             onChange={onChangeFormValueHandler}
             value={visitorData.additional}
             placeholder="Additional Information"
+            isInvalid={isInvalid.additional}
           />
         </Stack>
       </HStack>

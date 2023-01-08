@@ -7,7 +7,7 @@ interface LinkItemProps {
   route: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome, route: "/" },
+  { name: "Home", icon: FiHome, route: "/home" },
   { name: "Residents", icon: MdFamilyRestroom, route: "/residents" },
   { name: "Activity", icon: FiCompass, route: "/activity" },
 ];

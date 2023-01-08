@@ -1,8 +1,10 @@
-import { Box, BoxProps, CloseButton, Flex, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Button, CloseButton, Flex, Icon, Stack, Text } from "@chakra-ui/react";
 import LinkItems from "./Items";
 import NavItem from "./NavItem";
-
+import {CgLogOut} from 'react-icons/cg'
+import { useRouter } from "next/router";
 const SidebarContent = ({ ...rest }) => {
+  const router = useRouter();
   return (
     <Box
       bg={"white"}
@@ -13,17 +15,36 @@ const SidebarContent = ({ ...rest }) => {
       h="full"
       {...rest}
     >
+      <Stack h='100%' justify='space-between' align='center'>
+    <Box>
+
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           Smentry
         </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} />
       </Flex>
       {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon} route={link.route}>
+        <NavItem mt={2} key={link.name} icon={link.icon} route={link.route}>
           {link.name}
         </NavItem>
       ))}
+      </Box>
+      <Box>
+        <Button colorScheme='red' onClick={()=>{
+          localStorage.removeItem('smentryAdminLoggedIn');
+          router.push('/')
+        }} mb={8}>
+        <Icon
+            mr="4"
+            fontSize="16"
+            _groupHover={{
+              color: "black",
+            }}
+            as={CgLogOut}
+          />
+          Logout</Button>
+      </Box>
+      </Stack>
     </Box>
   );
 };

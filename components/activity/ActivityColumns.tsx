@@ -16,11 +16,12 @@ export const ActivityColumns: ColumnDef<any>[] = [
   {
     header: "CNIC",
     accessorKey: "cnic",
+    accessorFn:(d)=>{if(d.cnic=='') {return '-'}else return d.cnic},
     cell: (props: any) => <>{props.renderValue()}</>,
   },
   {
     header: "Numberplate",
-    accessorKey: "numberplate",
+    accessorKey: "numberplate",accessorFn:(d)=>{if(d.numberplate=='') {return '-'}else return d.numberplate},
     cell: (props: any) => <>{props.renderValue()}</>,
   },
   {

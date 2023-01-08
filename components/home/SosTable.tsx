@@ -6,30 +6,37 @@ import {
   Tbody,
   Td,
   Text,
-  Tfoot,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
-const DummySOSData = [
-  {
-    house: 421,
-    block: "C",
-  },
-  {
-    house: 1,
-    block: "B",
-  },
-  {
-    house: 21,
-    block: "C",
-  },
-  {
-    house: 73,
-    block: "D",
-  },
-];
+import { collection, onSnapshot, Unsubscribe } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../../firebase/clientApp";
+import { dismissSos } from "../../services/dismissSosSignal";
 const SosTable = () => {
+  const [sosSignals, setsosSignals] = useState<any[]>([]);
+  useEffect(() => {
+    const colRef = collection(db, "sos");
+    //const DBQuery = query(colRef, orderBy("createdAt"));
+    const unsub: Unsubscribe = onSnapshot(colRef, snapshot => {
+      let sos: any[] = [];
+      snapshot.docs.forEach(doc => {
+        sos.push({...doc.data(),id:doc.id});
+      });
+
+      setsosSignals(sos);
+    });
+    return unsub;
+  }, []);
+  if(sosSignals.length){
+    return  <>
+    <Text pt={6} fontSize="2xl" fontWeight="semibold">
+      SOS Signals Live
+    </Text>
+    <Text pt={'4'}>No Signals</Text>
+    </>
+  }
   return (
     <>
       <Text pt={6} fontSize="2xl" fontWeight="semibold">
@@ -45,17 +52,19 @@ const SosTable = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {DummySOSData.map((signal:any,key:any) => (
-              <Tr key={key}>
-                <Td>{signal.house}</Td>
-                <Td>{signal.block}</Td>
+            {sosSignals.map((signal:any,key:any) => {
+              if(!signal.dismissed){
+                return <Tr key={key}>
+                <Td>{signal.house_no.house}</Td>
+                <Td>{signal.house_no.block}</Td>
                 <Td textAlign="center">
-                  <Button colorScheme="red" fontWeight="normal">
+                  <Button onClick={()=>dismissSos(signal.id)} colorScheme="red" fontWeight="normal">
                     Dismiss
                   </Button>
                 </Td>
               </Tr>
-            ))}
+            }
+            })}
           </Tbody>
         </Table>
       </TableContainer>

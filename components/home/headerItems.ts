@@ -1,9 +1,5 @@
 const headerItems = [
   {
-    value: "Dashboard",
-    url: "/",
-  },
-  {
     value: "Approvals",
     url: "/approvals",
   },

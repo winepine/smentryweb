@@ -13,12 +13,14 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { addActivity } from "../../services/addActivity";
 import { DB_AddVisitorOrRequest } from "../../services/addVisitorOrRequest";
 import { VisitorDataType } from "./types/VisitorDataType";
 
 const VisitorForm = () => {
   const toast = useToast();
   const [isHouseVisitor, setIsHouseVisitor] = useState<boolean>(false);
+  const [isLoading,setIsLoading]=useState(false);
   const [visitorData, setVisitorData] = useState<VisitorDataType>({
     name: "",
     cnic: "",
@@ -36,17 +38,33 @@ const VisitorForm = () => {
     });
   };
   const onFormSubmitHandler = async () => {
+    setIsLoading(true);
     await DB_AddVisitorOrRequest(visitorData);
+    if(visitorData.house_no === "") {
+      await addActivity({
+        name:visitorData.name,
+        cnic:visitorData.cnic,
+        house_no:{
+          house:'',
+          block:''
+        },
+        numberplate:visitorData.numberplate,
+        type:'visitor',
+        additional:visitorData.additional
+      });
+
+    }
     const text =
       visitorData.house_no === ""
         ? "Visitor Added"
         : `Entrance Requested By ${visitorData.house_no}-${visitorData.block}`;
     toast({
       title: text,
-      status: "info",
+      status: "success",
       isClosable: true,
       position: "top-right",
     });
+    setIsLoading(false);
   };
   useEffect(() => {
     setIsHouseVisitor(!(visitorData.house_no == ""));
@@ -110,6 +128,7 @@ const VisitorForm = () => {
         fontWeight="normal"
         w="100%"
         mt={16}
+        isLoading={isLoading}
         onClick={onFormSubmitHandler}
       >
         {isHouseVisitor ? "Request House Member" : "Issue Visitor Pass"}

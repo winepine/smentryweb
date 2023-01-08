@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Modal,
   ModalBody,
@@ -6,13 +7,52 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Select,
   Stack,
   Text,
   useDisclosure,
+  useToast,
+  Image
 } from "@chakra-ui/react";
+import { serverTimestamp } from "firebase/firestore";
+// import Image from "next/image";
+import { useState } from "react";
+import { addActivity } from "../../services/addActivity";
 
 function StaffModal({ isOpen, onOpen, onClose, data }: any) {
-  console.log({ data });
+  const toast = useToast();
+    const [isLoading,setIsLoading] =useState(false);
+    const [houseSelected,setHouseSelected]=useState('0');
+    const Submitdismiss = async()=>{
+      if(houseSelected==''){
+        toast({
+          title: `Select A House`,
+          status: "error",
+          isClosable: true,
+          position: "top-right",
+        });
+        return;
+      }
+      const house_idx = parseInt(houseSelected);
+      setIsLoading(true);
+      await addActivity({
+        name:data[0].getValue(),
+        cnic:data[1].getValue(),
+        house_no:data[2].getValue()[house_idx],
+        numberplate:'',
+        type:'Staff',
+        additional:'',
+        createdAt:serverTimestamp()
+      })
+      setIsLoading(false);
+      toast({
+        title: `Entry Recorded For ${data[0].getValue()}`,
+        status: "success",
+        isClosable: true,
+        position: "top-right",
+      });
+      onClose();
+    }
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -21,7 +61,9 @@ function StaffModal({ isOpen, onOpen, onClose, data }: any) {
           <ModalHeader>Staff Info</ModalHeader>
           <ModalCloseButton />
           <ModalBody p={8}>
-            <Stack>
+              <Stack align='center'>
+
+              <Image src='/default-staff.jpg' alt='Staff Image' w='48' rounded='lg' textAlign='center' />
               <Text>
                 Name:
                 {data[0].getValue()}
@@ -31,20 +73,30 @@ function StaffModal({ isOpen, onOpen, onClose, data }: any) {
                 {data[1].getValue()}
               </Text>
               <Text>
+                Contact Numbers:
+                {data[3].getValue()}
+              </Text>
+              <Select placeholder="Houses" value={houseSelected} onChange={({target})=>setHouseSelected(target.value)}>
+              {data[2].getValue().map((h: any,i:any) => (
+                  <option key={i} value={i}>
+                    {h.house}-{h.block}
+                  </option>
+                ))}
+              </Select>
+              {/* <Text>
                 House Numbers:
                 {data[2].getValue().map((h: any) => (
                   <>
                     {h.house}-{h.block},
                   </>
                 ))}
-              </Text>
-              <Text>
-                Contact Numbers:
-                {data[3].getValue()}
-              </Text>
-              <Button my={4} colorScheme="green">
+              </Text> */}
+              <Stack minW={'100%'}>
+
+              <Button isLoading={isLoading} onClick={()=>Submitdismiss()} mt={4} my={4} colorScheme="green">
                 Insert Entry
               </Button>
+              </Stack>
             </Stack>
           </ModalBody>
         </ModalContent>

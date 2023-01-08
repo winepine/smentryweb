@@ -1,5 +1,5 @@
 import { Box, Container, Heading, Input, Stack } from "@chakra-ui/react";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { ActivityColumns } from "../components/activity/ActivityColumns";
 import OurTable from "../components/approvals/Table";
@@ -14,7 +14,8 @@ const Activity = () => {
   });
   useEffect(() => {
     const colRef = collection(db, "activity");
-    const unsub = onSnapshot(colRef, snapshot => {
+    const q = query(colRef,orderBy('createdAt','desc'))
+    const unsub = onSnapshot(q, snapshot => {
       let activity: any[] = [];
       snapshot.docs.forEach(doc => activity.push({ ...doc.data(), id: doc.id }));
       setActivity(activity);

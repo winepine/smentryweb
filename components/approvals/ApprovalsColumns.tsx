@@ -23,6 +23,7 @@ export const columns: ColumnDef<any>[] = [
   {
     header: "Additional Info",
     accessorKey: "additional",
+    accessorFn:d=>d.additional.substring(0, 25),
     // accessorFn: d => d.billing.first_name,
     cell: (props: any) => <>{props.renderValue()}</>,
   },

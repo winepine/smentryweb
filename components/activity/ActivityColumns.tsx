@@ -30,8 +30,16 @@ export const ActivityColumns: ColumnDef<any>[] = [
     cell: (props: any) => <>{props.renderValue()}</>,
   },
   {
+    header: "Time",
+    accessorKey: "createdAt",
+    accessorFn:d=>new Date(d.createdAt.seconds*1000).toString().substring(4,25),
+    
+    cell: (props: any) => <>{props.renderValue()}</>,
+  },
+  {
     header: "Additional Info",
     accessorKey: "additional",
+    accessorFn:d=>d.additional.substring(0, 25),
     cell: (props: any) => <>{props.renderValue()}</>,
   },
 ];

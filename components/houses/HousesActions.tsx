@@ -8,7 +8,7 @@ const HousesActions = ({ house }: any) => {
     <>
         <Button
           onClick={onOpen}
-          fontSize="xs"
+          fontSize='xs' size='xs' 
           mr={2}
           colorScheme="blue"
         >
@@ -18,7 +18,7 @@ const HousesActions = ({ house }: any) => {
       {house.status === "Active" && (
         <Button
         onClick={()=>resetHouse(house.id)}
-          fontSize="xs"
+        fontSize='xs' size='xs' 
           mr={2}
           colorScheme="red"
         >

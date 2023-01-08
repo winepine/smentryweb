@@ -11,8 +11,7 @@ const DeliveryActions = ({ request }: any) => {
         <>
         <Button
           onClick={() => completeDeliveryRequest(request.id)}
-          fontSize="xs"
-          size='sm'
+          fontSize='xs' size='xs' 
           mr={4}
           colorScheme="blue"
           >
@@ -22,8 +21,7 @@ const DeliveryActions = ({ request }: any) => {
     
         <Button
           onClick={() => dismissDeliveryRequest(request.id)}
-          fontSize="xs"
-          size='sm'
+          fontSize='xs' size='xs' 
           mr={4}
           colorScheme="red"
         >

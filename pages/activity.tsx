@@ -22,7 +22,7 @@ const Activity = () => {
     });
     return unsub;
   }, []);
-  return <Container bg="white" minW="100%" p={0} m={0}>
+  return <Container bg="white" minW="100%" minH='98vh' p={0} m={0}>
   <Stack p={8} px={16}>
     <Heading>Activity</Heading>
     <Box pt={8}>

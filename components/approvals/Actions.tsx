@@ -31,7 +31,7 @@ const ActionsForApprovals = ({ approval }: any) => {
     <>
     {
       approval.status==='Approved'&&
-      <Button isLoading={isLoading} onClick={() => Submitdismiss()} colorScheme="red">
+      <Button fontSize='xs' size='xs' isLoading={isLoading} onClick={() => Submitdismiss()} colorScheme="red">
         Dismiss
       </Button>
       }

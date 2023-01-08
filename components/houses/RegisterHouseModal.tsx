@@ -70,8 +70,8 @@ import { addHouse } from "../../services/addHouse";
             setIsLoading(false);
             setHouseData({
                 ...houseData,
-                house_no: "",
-        block: "",
+                owner_name: "",
+        owner_contact: ""
             })
             setPassShow(true);
         }

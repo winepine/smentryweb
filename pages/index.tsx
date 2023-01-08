@@ -1,32 +1,28 @@
 import {
-  Box,
+
   Button,
-  Center,
-  Container,
-  Divider,
-  Flex,
-  HStack,
-  Input,
-  Select,
-  Stack,
-  Text,
+  Container, Input,
+
 } from "@chakra-ui/react";
-import Header from "../components/home/Header";
-import NotificationSection from "../components/home/NotificationsSection";
-import VerticalDivider from "../components/home/VerticalDivider";
-import RightHalf from "../components/home/RightHalf";
+import Router, { useRouter } from "next/router";
+import { useState } from "react";
 
-export default function Home() {
+
+export default function Login() {
+  const router = useRouter()
+  const [email,setEmail]=useState('')
+  const [password,setPassword]=useState('')
+  const setAdminLoggedIn = ()=>{
+    if(email=='admin' && password=='0316'){
+      localStorage.setItem('smentryAdminLoggedIn',"true");
+      router.replace('/home');
+    }
+  }
   return (
-    <Container minW="100%" p={0} m={0}>
-      <Header />
-      <Divider />
-
-      <HStack bg="white" align="start" minH="100%">
-        <NotificationSection />
-        <VerticalDivider />
-        <RightHalf />
-      </HStack>
+    <Container p={0} m={0}>
+      <Input value={email} onChange={({target})=>setEmail(target.value)} placeholder="Email" />
+      <Input value={password} onChange={({target})=>setPassword(target.value)} placeholder="Password" type='password' />
+      <Button onClick={()=>setAdminLoggedIn()}>Login</Button>
     </Container>
   );
 }

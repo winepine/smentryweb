@@ -16,20 +16,30 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { initScriptLoader } from "next/script";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addHouse } from "../../services/addHouse";
+import { getHouses } from "../../services/getHouses";
 
 function RegisterHousesModal({ isOpen, onOpen, onClose }: any) {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [passShow, setPassShow] = useState(false);
   const [password, setPassword] = useState("");
+  const [houses, setHouses] = useState<any[]>([]);
   const [houseData, setHouseData] = useState({
     house_no: "",
     block: "",
     owner_name: "",
     owner_contact: "",
   });
+  useEffect(() => {
+    const getHousesz = async () => {
+      const res = await getHouses();
+      setHouses(res);
+      console.log({ res });
+    };
+    getHousesz();
+  }, []);
   const onChangeFormValueHandler = ({
     target,
   }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -75,6 +85,20 @@ function RegisterHousesModal({ isOpen, onOpen, onClose }: any) {
       });
       return;
     }
+    houses.forEach(house => {
+      if (
+        house.house_no == houseData.house_no &&
+        house.block == houseData.block
+      ) {
+        toast({
+          title: "House Already Exists",
+          status: "error",
+          isClosable: true,
+          position: "top-right",
+        });
+        return;
+      }
+    });
     let intialPassword = (Math.random() + 1).toString(36).substring(2);
     setPassword(intialPassword);
     setIsLoading(true);

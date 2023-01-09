@@ -14,7 +14,9 @@ import OurTable from "../components/approvals/Table";
 import { StaffColumns } from "../components/staff/StaffColumns";
 import { db } from "../firebase/clientApp";
 const constraints = ["name", "house", "cnic", "numberplate"];
+const blocks = ["All Blocks", "A", "B", "C", "D"];
 const Activity = () => {
+  const [block, setBlock] = useState("All Blocks");
   const [activity, setActivity] = useState<any[]>([]);
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
@@ -36,8 +38,11 @@ const Activity = () => {
         );
       }
     }
+    if (block != "All Blocks") {
+      newData = newData.filter(act => act.house_no.block == block);
+    }
     setActivity(newData);
-  }, [searchValue, activity]);
+  }, [searchValue, activity, block]);
   useEffect(() => {
     const colRef = collection(db, "activity");
     const q = query(colRef, orderBy("createdAt", "desc"));
@@ -57,14 +62,27 @@ const Activity = () => {
         <Heading>Activity</Heading>
         <HStack pt={8}>
           <Input
-            minW={"85%"}
+            minW={"75%"}
             value={searchValue}
             onChange={({ target }) => setsearchValue(target.value)}
             bg="gray.100"
             placeholder="Search"
           />
-          <Select onChange={({ target }) => setConstraint(target.value)}>
+          <Select
+            bg={"gray.100"}
+            onChange={({ target }) => setConstraint(target.value)}
+          >
             {constraints.map(con => (
+              <option value={con}>
+                {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
+              </option>
+            ))}
+          </Select>
+          <Select
+            bg={"gray.100"}
+            onChange={({ target }) => setBlock(target.value)}
+          >
+            {blocks.map(con => (
               <option value={con}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
               </option>

@@ -66,7 +66,10 @@ const Invites = () => {
             bg="gray.100"
             placeholder="Search"
           />
-          <Select onChange={({ target }) => setConstraint(target.value)}>
+          <Select
+            bg={"gray.100"}
+            onChange={({ target }) => setConstraint(target.value)}
+          >
             {constraints.map(con => (
               <option value={con}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}

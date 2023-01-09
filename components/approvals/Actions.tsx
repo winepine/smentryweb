@@ -5,19 +5,20 @@ import { addActivity } from "../../services/addActivity";
 import { dismissApproval } from "../../services/dismissApproval";
 
 const ActionsForApprovals = ({ approval }: any) => {
+  console.log({ approval });
   const toast = useToast();
-  const [isLoading,setIsLoading] =useState(false);
-  const Submitdismiss = async()=>{
+  const [isLoading, setIsLoading] = useState(false);
+  const Submitdismiss = async () => {
     setIsLoading(true);
     await addActivity({
-      name:approval.name,
-      cnic:approval.cnic,
-      house_no:approval.house_no,
-      numberplate:approval.numberplate,
-      type:'Resident Approved',
-      additional:approval.additional,
-      createdAt:serverTimestamp()
-    })
+      name: approval.name,
+      cnic: approval.cnic,
+      house_no: approval.house_no,
+      numberplate: approval.numberplate,
+      type: "Resident Approved",
+      additional: approval.additional,
+      createdAt: serverTimestamp(),
+    });
     await dismissApproval(approval.id);
     setIsLoading(false);
     toast({
@@ -26,15 +27,20 @@ const ActionsForApprovals = ({ approval }: any) => {
       isClosable: true,
       position: "top-right",
     });
-  }
+  };
   return (
     <>
-    {
-      approval.status==='Approved'&&
-      <Button fontSize='xs' size='xs' isLoading={isLoading} onClick={() => Submitdismiss()} colorScheme="red">
-        Dismiss
-      </Button>
-      }
+      {approval.status === "Approved" && (
+        <Button
+          fontSize="xs"
+          size="xs"
+          isLoading={isLoading}
+          onClick={() => Submitdismiss()}
+          colorScheme="green"
+        >
+          Grant Access
+        </Button>
+      )}
     </>
   );
 };

@@ -1,4 +1,12 @@
-import { Box, Container, Heading, Input, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Heading,
+  HStack,
+  Input,
+  Select,
+  Stack,
+} from "@chakra-ui/react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import OurTable from "../components/approvals/Table";
@@ -8,6 +16,7 @@ import { RequestsColumns } from "../components/requests/RequestsColumns";
 import { StaffColumns } from "../components/staff/StaffColumns";
 
 import { db } from "../firebase/clientApp";
+const constraints = ["name", "house"];
 
 const Staff = () => {
   const [staff, setStaff] = useState<any[]>([]);
@@ -15,12 +24,38 @@ const Staff = () => {
     pageIndex: 0,
     pageSize: 10,
   });
+  const [ogData, setOgData] = useState<any[]>([]);
+  const [constraint, setConstraint] = useState("name");
+  const [searchValue, setsearchValue] = useState("");
+  const filterByHouses = (houses: any) => {
+    let isMatch = false;
+    houses.house_no.filter((a: any) => {
+      if (a.house.includes(searchValue)) {
+        isMatch = true;
+      }
+    });
+    return isMatch;
+  };
+  useEffect(() => {
+    let newData = ogData;
+    if (searchValue != "") {
+      if (constraint == "house") {
+        newData = newData.filter(act => filterByHouses(act));
+      } else {
+        newData = newData.filter(act =>
+          act[constraint].toLowerCase().includes(searchValue.toLowerCase())
+        );
+      }
+    }
+    setStaff(newData);
+  }, [searchValue]);
   useEffect(() => {
     const colRef = collection(db, "staff");
     const unsub = onSnapshot(colRef, snapshot => {
       let staff: any[] = [];
       snapshot.docs.forEach(doc => staff.push({ ...doc.data(), id: doc.id }));
       setStaff(staff);
+      setOgData(staff);
     });
     return unsub;
   }, []);
@@ -29,9 +64,22 @@ const Staff = () => {
       <Header />
       <Stack p={8} px={16}>
         <Heading>Staff</Heading>
-        <Box pt={8}>
-          <Input bg="gray.100" placeholder="Search" p={6} />
-        </Box>
+        <HStack pt={8}>
+          <Input
+            minW={"85%"}
+            value={searchValue}
+            onChange={({ target }) => setsearchValue(target.value)}
+            bg="gray.100"
+            placeholder="Search"
+          />
+          <Select onChange={({ target }) => setConstraint(target.value)}>
+            {constraints.map(con => (
+              <option value={con}>
+                {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
+              </option>
+            ))}
+          </Select>
+        </HStack>
         <OurTable
           data={staff}
           columns={StaffColumns}

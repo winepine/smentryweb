@@ -85,20 +85,25 @@ function RegisterHousesModal({ isOpen, onOpen, onClose }: any) {
       });
       return;
     }
+    let alreadyExists = false;
     houses.forEach(house => {
       if (
         house.house_no == houseData.house_no &&
         house.block == houseData.block
       ) {
-        toast({
-          title: "House Already Exists",
-          status: "error",
-          isClosable: true,
-          position: "top-right",
-        });
-        return;
+        alreadyExists = true;
       }
+      setIsLoading(false);
     });
+    if (alreadyExists) {
+      toast({
+        title: "House Already Exists",
+        status: "error",
+        isClosable: true,
+        position: "top-right",
+      });
+      return;
+    }
     let intialPassword = (Math.random() + 1).toString(36).substring(2);
     setPassword(intialPassword);
     setIsLoading(true);

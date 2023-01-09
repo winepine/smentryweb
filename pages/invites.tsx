@@ -18,8 +18,11 @@ import { StaffColumns } from "../components/staff/StaffColumns";
 
 import { db } from "../firebase/clientApp";
 const constraints = ["name", "house", "numberplate"];
+const blocks = ["All Blocks", "A", "B", "C", "D"];
 
 const Invites = () => {
+  const [block, setBlock] = useState("All Blocks");
+
   const [invites, setInvites] = useState<any[]>([]);
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
@@ -41,8 +44,11 @@ const Invites = () => {
         );
       }
     }
+    if (block != "All Blocks") {
+      newData = newData.filter(act => act.house_no.block == block);
+    }
     setInvites(newData);
-  }, [searchValue]);
+  }, [searchValue, block]);
   useEffect(() => {
     const colRef = collection(db, "invites");
     const unsub = onSnapshot(colRef, snapshot => {
@@ -60,7 +66,7 @@ const Invites = () => {
         <Heading>Invites</Heading>
         <HStack pt={8}>
           <Input
-            minW={"85%"}
+            minW={"70%"}
             value={searchValue}
             onChange={({ target }) => setsearchValue(target.value)}
             bg="gray.100"
@@ -71,6 +77,16 @@ const Invites = () => {
             onChange={({ target }) => setConstraint(target.value)}
           >
             {constraints.map(con => (
+              <option value={con}>
+                {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
+              </option>
+            ))}
+          </Select>
+          <Select
+            bg={"gray.100"}
+            onChange={({ target }) => setBlock(target.value)}
+          >
+            {blocks.map(con => (
               <option value={con}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
               </option>

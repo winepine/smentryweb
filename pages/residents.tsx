@@ -18,8 +18,10 @@ import { HousesColumns } from "../components/houses/HousesColumns";
 import { db } from "../firebase/clientApp";
 import RegisterHousesModal from "../components/houses/RegisterHouseModal";
 const constraints = ["owner_name", "house"];
+const blocks = ["All Blocks", "A", "B", "C", "D"];
 
 const Residents = () => {
+  const [block, setBlock] = useState("All Blocks");
   const [houses, setHouses] = useState<any[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [paginationState, setPaginationState] = useState({
@@ -42,8 +44,11 @@ const Residents = () => {
         );
       }
     }
+    if (block != "All Blocks") {
+      newData = newData.filter(act => act.house_no.block == block);
+    }
     setHouses(newData);
-  }, [searchValue]);
+  }, [searchValue, block]);
   useEffect(() => {
     const colRef = collection(db, "houses");
     const unsub = onSnapshot(colRef, snapshot => {
@@ -60,7 +65,7 @@ const Residents = () => {
         <Heading>Houses Management</Heading>
         <HStack pt={8}>
           <Input
-            minW={"65%"}
+            minW={"55%"}
             value={searchValue}
             onChange={({ target }) => setsearchValue(target.value)}
             bg="gray.100"
@@ -71,6 +76,16 @@ const Residents = () => {
             onChange={({ target }) => setConstraint(target.value)}
           >
             {constraints.map(con => (
+              <option value={con}>
+                {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
+              </option>
+            ))}
+          </Select>
+          <Select
+            bg={"gray.100"}
+            onChange={({ target }) => setBlock(target.value)}
+          >
+            {blocks.map(con => (
               <option value={con}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
               </option>

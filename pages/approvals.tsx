@@ -22,9 +22,10 @@ import { columns } from "../components/approvals/ApprovalsColumns";
 import ApprovalsTable from "../components/approvals/Table";
 import Header from "../components/home/Header";
 import { db } from "../firebase/clientApp";
-import { getApprovalsCount } from "../services/getApprovalCount";
+const blocks = ["All Blocks", "A", "B", "C", "D"];
 const constraints = ["name", "house"];
 const Approvals = () => {
+  const [block, setBlock] = useState("All Blocks");
   const [approvals, setApprovals] = useState<any[]>([]);
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
@@ -46,8 +47,11 @@ const Approvals = () => {
         );
       }
     }
+    if (block != "All Blocks") {
+      newData = newData.filter(act => act.house_no.block == block);
+    }
     setApprovals(newData);
-  }, [searchValue, approvals]);
+  }, [searchValue, block]);
   useEffect(() => {
     const colRef = collection(db, "house_visitors");
     const q = query(colRef, where("dismissed", "==", false));
@@ -70,7 +74,7 @@ const Approvals = () => {
         <Heading color="gray.600">Approvals</Heading>
         <HStack pt={8}>
           <Input
-            minW={"85%"}
+            minW={"70%"}
             value={searchValue}
             onChange={({ target }) => setsearchValue(target.value)}
             bg="gray.100"
@@ -81,6 +85,16 @@ const Approvals = () => {
             onChange={({ target }) => setConstraint(target.value)}
           >
             {constraints.map(con => (
+              <option value={con}>
+                {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
+              </option>
+            ))}
+          </Select>
+          <Select
+            bg={"gray.100"}
+            onChange={({ target }) => setBlock(target.value)}
+          >
+            {blocks.map(con => (
               <option value={con}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
               </option>

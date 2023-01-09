@@ -16,7 +16,10 @@ import { RequestsColumns } from "../components/requests/RequestsColumns";
 
 import { db } from "../firebase/clientApp";
 const constraints = ["store_name", "house"];
+const blocks = ["All Blocks", "A", "B", "C", "D"];
+
 const Requests = () => {
+  const [block, setBlock] = useState("All Blocks");
   const [requests, setRequests] = useState<any[]>([]);
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
@@ -39,8 +42,11 @@ const Requests = () => {
         );
       }
     }
+    if (block != "All Blocks") {
+      newData = newData.filter(act => act.house_no.block == block);
+    }
     setRequests(newData);
-  }, [searchValue, requests]);
+  }, [searchValue, block]);
   useEffect(() => {
     const colRef = collection(db, "Delivery_Requests");
     const unsub = onSnapshot(colRef, snapshot => {
@@ -58,7 +64,7 @@ const Requests = () => {
         <Heading>Requests</Heading>
         <HStack pt={8}>
           <Input
-            minW={"85%"}
+            minW={"70%"}
             value={searchValue}
             onChange={({ target }) => setsearchValue(target.value)}
             bg="gray.100"
@@ -69,6 +75,16 @@ const Requests = () => {
             onChange={({ target }) => setConstraint(target.value)}
           >
             {constraints.map(con => (
+              <option value={con}>
+                {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
+              </option>
+            ))}
+          </Select>
+          <Select
+            bg={"gray.100"}
+            onChange={({ target }) => setBlock(target.value)}
+          >
+            {blocks.map(con => (
               <option value={con}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
               </option>

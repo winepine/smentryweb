@@ -62,7 +62,7 @@ const Activity = () => {
         <Heading>Activity</Heading>
         <HStack pt={8}>
           <Input
-            minW={"75%"}
+            minW={"70%"}
             value={searchValue}
             onChange={({ target }) => setsearchValue(target.value)}
             bg="gray.100"

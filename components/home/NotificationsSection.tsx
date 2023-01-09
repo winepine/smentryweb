@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase/clientApp";
+import BasicStatistics from "../shashka";
 import NotificationItem from "./NotificationItem";
 
 const NotificationSection = () => {
@@ -29,6 +30,10 @@ const NotificationSection = () => {
 
   return (
     <Stack w="50%" p={8} align="center">
+      {/* <BasicStatistics /> */}
+
+      
+
       <Heading color="gray.600" fontWeight="semibold">
         Notifications
       </Heading>

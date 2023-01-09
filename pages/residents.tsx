@@ -45,7 +45,7 @@ const Residents = () => {
       }
     }
     if (block != "All Blocks") {
-      newData = newData.filter(act => act.house_no.block == block);
+      newData = newData.filter(act => act.block == block);
     }
     setHouses(newData);
   }, [searchValue, block]);

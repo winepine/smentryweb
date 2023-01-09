@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase/clientApp";
-import BasicStatistics from "../shashka";
+
 import NotificationItem from "./NotificationItem";
 
 const NotificationSection = () => {

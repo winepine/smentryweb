@@ -61,7 +61,7 @@ const Requests = () => {
     <Container bg="white" minW="100%" p={0} m={0}>
       <Header />
       <Stack p={8} px={16}>
-        <Heading>Requests</Heading>
+        <Heading>Delivery Requests</Heading>
         <HStack pt={8}>
           <Input
             minW={"70%"}

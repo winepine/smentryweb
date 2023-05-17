@@ -5,6 +5,8 @@ export default function Document() {
     <Html>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <script src="https://cdn.roboflow.com/0.2.22/roboflow.js"></script>
+
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"

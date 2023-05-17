@@ -1,40 +1,11 @@
 import {
-  Box,
-  Divider,
-  Flex,
-  Heading,
-  HStack,
-  Stack,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
-import {
-  collection,
-  onSnapshot,
-  Unsubscribe,
-  orderBy,
-  query,
-  Query,
-  serverTimestamp,
-} from "firebase/firestore";
-import {
   DetectDocumentTextCommand,
   TextractClient,
 } from "@aws-sdk/client-textract";
-import { useEffect, useRef, useState } from "react";
-import { db } from "../../firebase/clientApp";
-
-import NotificationItem from "./NotificationItem";
-import { verifyVehicleFromDB } from "../../services/getHouses";
-import { AddNotification } from "../../services/addNotification";
-
-const NotificationSection = () => {
-  const toast = useToast();
-  const [notifications, setNotifications] = useState<any[]>([]);
-  const [lastEntered, setLastEntered] = useState("");
+import { useEffect, useRef } from "react";
+export default function Jaida() {
   const canvasRef = useRef(null);
   async function capture(predictions: any) {
-    console.log("detected");
     const video = document.getElementsByTagName("video")[0];
     var canvas = document.getElementById("canvas");
     const coords = predictions[0].bbox;
@@ -74,51 +45,12 @@ const NotificationSection = () => {
     const response = await client.send(command);
     let strings = "";
     response.Blocks.forEach(block => {
-      if (
-        block.BlockType === "WORD" &&
-        block.Text.length < 5 &&
-        block.Text.length > 1
-      ) {
-        strings += block.Text;
+      if (block.BlockType === "WORD") {
+        strings += block.Text + " ";
       }
     });
     console.log({ Detections: strings });
-    if (strings.length > 0 && strings !== lastEntered) {
-      const founded = await verifyVehicleFromDB(strings);
-      if (founded) {
-        setLastEntered(strings);
-        // setTimeout(() => {
-        //   setEnterDelay(true);
-        // }, 5000);
-        toast({
-          title: `Vehicle ${strings} Entered`,
-          status: "success",
-          isClosable: true,
-          position: "top-right",
-        });
-        await AddNotification({
-          type: "success",
-          text: `Vehicle ${strings} Entered at ${new Date().toLocaleString()}`,
-          createdAt: serverTimestamp(),
-        });
-        return strings;
-      }
-      return strings;
-    }
   }
-  useEffect(() => {
-    const colRef = collection(db, "notifications");
-    const DBQuery = query(colRef, orderBy("createdAt", "desc"));
-    const unsub: Unsubscribe = onSnapshot(DBQuery, snapshot => {
-      let Notifications: any[] = [];
-      snapshot.docs.forEach(doc => {
-        Notifications.push(doc.data());
-      });
-
-      setNotifications(Notifications);
-    });
-    return unsub;
-  }, []);
   useEffect(() => {
     const video = document.getElementsByTagName("video")[0];
     let model;
@@ -256,12 +188,11 @@ const NotificationSection = () => {
 
       model
         .detect(video)
-        .then(async function (predictions: Array<any>) {
+        .then(function (predictions: Array<any>) {
           if (predictions.length) {
             // console.log({ predictions });
             if (readyVar) {
-              const sabr = await capture(predictions);
-              console.log({ sabr });
+              capture(predictions);
               setTimeout(() => {
                 readyVar = true;
               }, 500);
@@ -293,60 +224,14 @@ const NotificationSection = () => {
     };
   }, []);
   return (
-    <Stack w="50%" p={8} align="center">
-      {/* <BasicStatistics /> */}
-
-      <Heading color="gray.600" fontWeight="semibold">
-        Notifications
-      </Heading>
-
-      <Flex justifyContent={"center"} alignItems={"top"}>
-        <body
-          style={{
-            width: "40%",
-            height: "40%",
-            backgroundColor: "black",
-            borderRadius: "10px",
-
-            display: "flex",
-          }}
-          className="loading"
-        >
-          <video
-            style={{
-              borderRadius: "10px",
-            }}
-            id="video"
-            autoPlay
-            muted
-            playsInline
-          ></video>
-          {/* <video id="video" autoPlay muted playsInline></video> */}
-          {/* <div id="fps"></div> */}
-          <canvas
-            style={{
-              display: "none",
-            }}
-            ref={canvasRef}
-            id="canvas"
-          ></canvas>
+    <>
+      <div>
+        <body className="loading">
+          <video id="video" autoPlay muted playsInline></video>
+          <div id="fps"></div>
+          <canvas ref={canvasRef} id="canvas"></canvas>
         </body>
-      </Flex>
-      <HStack>
-        <Text>Camera Status: </Text>
-        <Text color="green">Live</Text>
-      </HStack>
-      <Divider />
-      <>
-        {notifications.map((notif, key) => (
-          <NotificationItem
-            notificationStatus={notif.type}
-            notificationText={notif.text}
-            key={key}
-          />
-        ))}
-      </>
-    </Stack>
+      </div>
+    </>
   );
-};
-export default NotificationSection;
+}

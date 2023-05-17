@@ -4,7 +4,7 @@ const headerItems = [
     url: "/approvals",
   },
   {
-    value: "Requests",
+    value: "Delivery",
     url: "/requests",
   },
   {

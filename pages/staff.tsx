@@ -20,6 +20,7 @@ const constraints = ["name", "house"];
 
 const Staff = () => {
   const [staff, setStaff] = useState<any[]>([]);
+  console.log({ staff });
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
     pageSize: 10,

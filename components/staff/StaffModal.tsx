@@ -12,7 +12,7 @@ import {
   Text,
   useDisclosure,
   useToast,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import { serverTimestamp } from "firebase/firestore";
 // import Image from "next/image";
@@ -21,38 +21,39 @@ import { addActivity } from "../../services/addActivity";
 
 function StaffModal({ isOpen, onOpen, onClose, data }: any) {
   const toast = useToast();
-    const [isLoading,setIsLoading] =useState(false);
-    const [houseSelected,setHouseSelected]=useState('0');
-    const Submitdismiss = async()=>{
-      if(houseSelected==''){
-        toast({
-          title: `Select A House`,
-          status: "error",
-          isClosable: true,
-          position: "top-right",
-        });
-        return;
-      }
-      const house_idx = parseInt(houseSelected);
-      setIsLoading(true);
-      await addActivity({
-        name:data[0].getValue(),
-        cnic:data[1].getValue(),
-        house_no:data[2].getValue()[house_idx],
-        numberplate:'',
-        type:'Staff',
-        additional:'',
-        createdAt:serverTimestamp()
-      })
-      setIsLoading(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [houseSelected, setHouseSelected] = useState("0");
+  const Submitdismiss = async () => {
+    if (houseSelected == "") {
       toast({
-        title: `Entry Recorded For ${data[0].getValue()}`,
-        status: "success",
+        title: `Select A House`,
+        status: "error",
         isClosable: true,
         position: "top-right",
       });
-      onClose();
+      return;
     }
+    const house_idx = parseInt(houseSelected);
+    setIsLoading(true);
+    await addActivity({
+      name: data.name,
+      cnic: data.cnic,
+      house_no: data.house_no[house_idx],
+      numberplate: "",
+      type: "Staff",
+      additional: "",
+      createdAt: serverTimestamp(),
+    });
+    setIsLoading(false);
+    toast({
+      title: `Entry Recorded For ${data.name}`,
+      status: "success",
+      isClosable: true,
+      position: "top-right",
+    });
+    onClose();
+  };
+  console.log({ data });
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -61,23 +62,32 @@ function StaffModal({ isOpen, onOpen, onClose, data }: any) {
           <ModalHeader>Staff Info</ModalHeader>
           <ModalCloseButton />
           <ModalBody p={8}>
-              <Stack align='center'>
-
-              <Image src='/default-staff.jpg' alt='Staff Image' w='48' rounded='lg' textAlign='center' />
+            <Stack align="center">
+              <Image
+                src={data.image}
+                alt="Staff Image"
+                w="48"
+                rounded="lg"
+                textAlign="center"
+              />
               <Text>
                 Name:
-                {data[0].getValue()}
+                {data.name}
               </Text>
               <Text>
                 CNIC:
-                {data[1].getValue()}
+                {data.cnic}
               </Text>
               <Text>
                 Contact Numbers:
-                {data[3].getValue()}
+                {data.contact_no}
               </Text>
-              <Select placeholder="Houses" value={houseSelected} onChange={({target})=>setHouseSelected(target.value)}>
-              {data[2].getValue().map((h: any,i:any) => (
+              <Select
+                placeholder="Houses"
+                value={houseSelected}
+                onChange={({ target }) => setHouseSelected(target.value)}
+              >
+                {data.house_no.map((h: any, i: any) => (
                   <option key={i} value={i}>
                     {h.house}-{h.block}
                   </option>
@@ -91,11 +101,16 @@ function StaffModal({ isOpen, onOpen, onClose, data }: any) {
                   </>
                 ))}
               </Text> */}
-              <Stack minW={'100%'}>
-
-              <Button isLoading={isLoading} onClick={()=>Submitdismiss()} mt={4} my={4} colorScheme="green">
-                Insert Entry
-              </Button>
+              <Stack minW={"100%"}>
+                <Button
+                  isLoading={isLoading}
+                  onClick={() => Submitdismiss()}
+                  mt={4}
+                  my={4}
+                  colorScheme="green"
+                >
+                  Insert Entry
+                </Button>
               </Stack>
             </Stack>
           </ModalBody>

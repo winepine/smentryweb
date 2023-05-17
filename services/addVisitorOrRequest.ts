@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { VisitorDataType } from "../components/home/types/VisitorDataType";
 import { db } from "../firebase/clientApp";
+import axios from "axios";
 const DB_AddVisitorOrRequest = async (visitorData: VisitorDataType) => {
   let docRef;
   if (visitorData.house_no == "") {
@@ -17,6 +18,21 @@ const DB_AddVisitorOrRequest = async (visitorData: VisitorDataType) => {
       createdAt: serverTimestamp(),
     };
     docRef = await addDoc(collection(db, "visitors"), updatedData);
+    // const sendNotification = await fetch(
+    //   "https://exp.host/--/api/v2/push/send",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       to: "ExponentPushToken[C87q7YA563TKRJyHx_-G6E]",
+    //       title: "New Visitor",
+    //       body: "A new visitor has arrived",
+    //     }),
+    //   }
+    // );
+    // console.log({ sendNotification });
   } else {
     docRef = await addDoc(collection(db, "house_visitors"), {
       ...visitorData,
@@ -25,6 +41,17 @@ const DB_AddVisitorOrRequest = async (visitorData: VisitorDataType) => {
       dismissed: false,
       createdAt: serverTimestamp(),
     });
+    // const sendNotification = await axios.post(
+    //   "https://exp.host/--/api/v2/push/send",
+    //   {
+    //     to: "ExponentPushToken[C87q7YA563TKRJyHx_-G6E]",
+    //     title: "New Visitor",
+    //     body: "A new visitor has arrived",
+    //   }
+    // );
+    const sendNotification = await fetch(`/api/hello?name=${visitorData.name}`);
+
+    console.log({ sendNotification });
   }
   console.log({ docRef });
   //return docRef;

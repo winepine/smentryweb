@@ -15,7 +15,7 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
-        <script
+        {/* <script
           async
           crossOrigin="anonymous"
           src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
@@ -32,11 +32,7 @@ export default function Document() {
           crossOrigin="anonymous"
           src="https://cdnjs.cloudflare.com/ajax/libs/async/3.2.0/async.min.js"
           integrity="sha512-6K6+H87tLdCWvY5ml9ZQXLRlPlDEt8uXmtELhuJRgFyEDv6JvndWHg3jadJuBVGPEhhA2AAt+ROMC2V7EvTIWw=="
-        ></script>
-        <script
-          src="https://cdn.roboflow.com/0.2.22/roboflow.js"
-          async
-        ></script>
+        ></script> */}
         <title>Smentry</title>
       </Head>
       <body>

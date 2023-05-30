@@ -15,8 +15,12 @@ export function StaffValues({ table }: any) {
             key={index}
             _hover={{ bg: "gray.100" }}
             onClick={() => {
+              // <<<<<<< HEAD
               console.log({ row });
               setSelectedStaff(row.original);
+              // =======
+              // setSelectedStaff(row.getVisibleCells());
+              // >>>>>>> 3d3e3bf82e4810765eb21d2b84eb6782b50b96ff
               onOpen();
             }}
           >

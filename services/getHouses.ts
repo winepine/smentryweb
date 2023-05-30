@@ -28,6 +28,17 @@ const verifyVehicleFromDB = async (gaddi: string) => {
       }
     });
   });
+  let requests: any = [];
+  const invitesRef = collection(db, "house_visitors");
+  const querySnapshot = await getDocs(invitesRef);
+  querySnapshot.forEach(doc => {
+    requests.push({ ...doc.data(), id: doc.id });
+  });
+  requests.forEach((request: any) => {
+    if (request?.numberplate?.toLowerCase() === gaddi.toLowerCase()) {
+      foundHouse = request;
+    }
+  });
   return foundHouse;
 };
 export { getHouses, verifyVehicleFromDB };

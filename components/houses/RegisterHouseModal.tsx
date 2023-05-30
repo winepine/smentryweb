@@ -31,6 +31,7 @@ function RegisterHousesModal({ isOpen, onOpen, onClose }: any) {
     block: "",
     owner_name: "",
     owner_contact: "",
+    flat_no: "",
   });
   useEffect(() => {
     const getHousesz = async () => {
@@ -186,6 +187,13 @@ function RegisterHousesModal({ isOpen, onOpen, onClose }: any) {
                 value={houseData.owner_contact}
                 placeholder="Owner Contact"
                 type={"tel"}
+              />
+              <Input
+                onChange={onChangeFormValueHandler}
+                name="flat_no"
+                value={houseData.flat_no}
+                placeholder="FLAT"
+                // type={"tel"}
               />
               <Box pt={6}>
                 <Stack>

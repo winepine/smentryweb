@@ -59,14 +59,14 @@ export default function Login({ setLoggedIn }: any) {
                 w="xl"
                 value={email}
                 onChange={({ target }) => setEmail(target.value)}
-                placeholder="Email"
+                placeholder="admin"
               />
               <Input
                 bg={"gray.100"}
                 w="xl"
                 value={password}
                 onChange={({ target }) => setPassword(target.value)}
-                placeholder="Password"
+                placeholder="0316"
                 type="password"
               />
               <Button

@@ -76,8 +76,8 @@ const Invites = () => {
             bg={"gray.100"}
             onChange={({ target }) => setConstraint(target.value)}
           >
-            {constraints.map(con => (
-              <option value={con}>
+            {constraints.map((con, key) => (
+              <option key={key} value={con}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
               </option>
             ))}
@@ -86,8 +86,8 @@ const Invites = () => {
             bg={"gray.100"}
             onChange={({ target }) => setBlock(target.value)}
           >
-            {blocks.map(con => (
-              <option value={con}>
+            {blocks.map((con, key) => (
+              <option key={key} value={con}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
               </option>
             ))}

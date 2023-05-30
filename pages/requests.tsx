@@ -74,8 +74,8 @@ const Requests = () => {
             bg={"gray.100"}
             onChange={({ target }) => setConstraint(target.value)}
           >
-            {constraints.map(con => (
-              <option value={con}>
+            {constraints.map((con, key) => (
+              <option value={con} key={key}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
               </option>
             ))}
@@ -84,8 +84,8 @@ const Requests = () => {
             bg={"gray.100"}
             onChange={({ target }) => setBlock(target.value)}
           >
-            {blocks.map(con => (
-              <option value={con}>
+            {blocks.map((con, key) => (
+              <option value={con} key={key}>
                 {con[0].toLocaleUpperCase() + con.substring(1, con.length)}
               </option>
             ))}
